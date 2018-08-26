@@ -1,7 +1,5 @@
 package com.phototagger.datalake.data
 
-import com.phototagger.datalake.Photo
-
 interface PhotoRepository {
 
     /**
@@ -9,11 +7,13 @@ interface PhotoRepository {
      */
     fun add(photo: Photo): String
 
-    fun get(id: String): Photo
+    fun get(id: String): Photo?
 
     fun getAll(): List<Photo>
 
-    fun update(photo: Photo)
+    fun update(photoId: String, photo: Photo)
 
     fun delete(id: String)
+
+    data class Photo(val id: String, val tags: List<String>, val originalUrl: String, val storageUrl: String)
 }

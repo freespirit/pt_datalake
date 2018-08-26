@@ -1,3 +1,7 @@
+buildscript {
+    extensions.kotlin_version = "1.2.60"
+}
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.2.60'
 }
@@ -7,10 +11,17 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        url  "https://dl.bintray.com/kotlin/exposed"
+    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation 'org.jetbrains.exposed:exposed:0.10.4'
+    implementation "org.xerial:sqlite-jdbc:3.21.0.1"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testImplementation "io.mockk:mockk:1.8.6"
