@@ -75,7 +75,7 @@ internal class PhotoServiceTest {
     fun getAll_isEmpty() {
         every { repository.getAll() } returns emptyList()
 
-        val photos: List<Photo> = service.getAll()
+        val photos: List<String> = service.getAll()
 
         assert(photos.isEmpty())
     }
@@ -96,16 +96,9 @@ internal class PhotoServiceTest {
         every { repository.getAll() } returns listOf(photo1, photo2)
         every { storage.load(any()) } returns byteArrayOf()
 
-        val photos = service.getAll()
+        val ids = service.getAll()
 
-        assertArrayEquals(arrayOf("tag1", "tag2"), photos[0].tags.toTypedArray())
-        assertArrayEquals(arrayOf("tag3", "tag4"), photos[1].tags.toTypedArray())
-
-        assertEquals("example.com", photos[0].originalUrl)
-        assertEquals("example.org", photos[1].originalUrl)
-
-        assertEquals("/tmp/photos/1", photos[0].storageUrl)
-        assertEquals("/tmp/photos/2", photos[1].storageUrl)
+        assertArrayEquals(arrayOf("1", "2"), ids.toTypedArray())
     }
 
     @Test

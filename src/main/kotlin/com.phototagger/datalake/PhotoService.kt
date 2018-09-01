@@ -32,14 +32,9 @@ class PhotoService(val storage: PhotoStorage, val repository: PhotoRepository) {
         return PhotoMapper().dbToModel(dbPhoto).copy(bytes = storage.load(dbPhoto.storageUrl))
     }
 
-    //TODO consider returning a list of just the IDs
-    fun getAll(): List<Photo> {
-        val photoMapper = PhotoMapper()
-        return repository.getAll()
-                .map {
-                    photoMapper.dbToModel(it).copy(bytes = storage.load(it.storageUrl))
-                }
-    }
+    fun getAll(): List<String> =
+            repository.getAll()
+                    .map { it.id }
 
     fun update(photoId: String, photo: Photo) {
         val dbPhoto = PhotoMapper().modelToDb(photo)
