@@ -1,11 +1,10 @@
 package com.phototagger.datalake.data
 
+import com.phototagger.datalake.data.PhotoRepository.Photo
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-
-import com.phototagger.datalake.data.PhotoRepository.Photo
 import java.sql.Connection
 
 /**
@@ -75,8 +74,8 @@ class PhotoDB(pathToSQLite: String) : PhotoRepository {
         }
     }
 
-    override fun get(id: String): Photo? = transact {
-        Photos.select { Photos.id eq id.toInt() }
+    override fun get(photoId: String): Photo? = transact {
+        Photos.select { Photos.id eq photoId.toInt() }
                 .map {
                     val id = it[Photos.id]
                     val tags = photoTags(id)
@@ -112,10 +111,10 @@ class PhotoDB(pathToSQLite: String) : PhotoRepository {
                 }
     }
 
-    override fun update(photoId: String, photo: Photo) {
+    override fun update(photo: Photo) {
         transact {
             val foundPhotoId = Photos.slice(Photos.id)
-                    .select { Photos.id eq photoId.toInt() }
+                    .select { Photos.id eq photo.id.toInt() }
                     .map { it[Photos.id] }
                     .firstOrNull()
 

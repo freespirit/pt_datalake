@@ -71,7 +71,7 @@ internal class PhotoDBTest {
     @Test
     fun update_none() {
         assertDoesNotThrow {
-            db.update("1", Photo("1", listOf("tag1", "tag2"), "example.com", "/tmp/photo1"))
+            db.update(Photo("1", listOf("tag1", "tag2"), "example.com", "/tmp/photo1"))
         }
     }
 
@@ -88,7 +88,7 @@ internal class PhotoDBTest {
         assertArrayEquals(listOf("tag1", "tag2").toTypedArray(), photoOut?.tags?.toTypedArray())
 
 
-        db.update(id, Photo("", listOf("tag1"), "example.co.uk", "/tmp/photo2"))
+        db.update(Photo(id, listOf("tag1"), "example.co.uk", "/tmp/photo2"))
         photoOut = db.get(id)
 
         assertNotNull(photoOut)
