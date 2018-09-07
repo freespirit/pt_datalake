@@ -1,9 +1,5 @@
-buildscript {
-    extensions.kotlin_version = "1.2.60"
-}
-
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.2.60'
+    id 'org.jetbrains.kotlin.jvm' version '1.2.61'
 }
 
 group 'phototagger.com'
@@ -11,20 +7,30 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    maven {
-        url  "https://dl.bintray.com/kotlin/exposed"
-    }
+    maven { url "https://dl.bintray.com/kotlin/exposed" }
+    maven { url 'https://jitpack.io' }
 }
+
+ext.kotlin_version = "1.2.61"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation 'org.jetbrains.exposed:exposed:0.10.4'
+
+    implementation "org.jetbrains.exposed:exposed:0.10.4"
     implementation "org.xerial:sqlite-jdbc:3.21.0.1"
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    implementation 'io.javalin:javalin:2.1.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.2.0"
     testImplementation "io.mockk:mockk:1.8.6"
+    testImplementation "com.github.kittinunf.fuel:fuel:1.15.0"
+    testImplementation 'com.github.kittinunf.fuel:fuel-gson:1.15.0'
+    testImplementation "org.slf4j:slf4j-simple:1.7.25"
 }
 
 compileKotlin {
@@ -32,4 +38,8 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+test {
+    useJUnitPlatform()
 }

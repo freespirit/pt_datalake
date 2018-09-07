@@ -4,7 +4,7 @@ import com.phototagger.datalake.data.PhotoRepository
 import com.phototagger.datalake.model.Photo
 import com.phototagger.datalake.storage.PhotoStorage
 
-class PhotoService(val storage: PhotoStorage, val repository: PhotoRepository) {
+class PhotoService(private val storage: PhotoStorage, private val repository: PhotoRepository) {
 
     /**
      * @return the id of the stored photo
@@ -23,13 +23,13 @@ class PhotoService(val storage: PhotoStorage, val repository: PhotoRepository) {
             storage.save(photo.bytes, photoId)
 
     private fun insertPhotoToDB(photo: Photo): String {
-        val dbPhoto = PhotoMapper().modelToDb(photo)
+        val dbPhoto = PhotoModelMapper().mapModelToDb(photo)
         return repository.add(dbPhoto)
     }
 
     fun getPhoto(photoId: String): Photo? {
         val dbPhoto = repository.get(photoId) ?: return null
-        return PhotoMapper().dbToModel(dbPhoto).copy(bytes = storage.load(dbPhoto.storageUrl))
+        return PhotoModelMapper().mapDbToModel(dbPhoto).copy(bytes = storage.load(dbPhoto.storageUrl))
     }
 
     fun getAll(): List<String> =
@@ -37,7 +37,7 @@ class PhotoService(val storage: PhotoStorage, val repository: PhotoRepository) {
                     .map { it.id }
 
     fun update(photoId: String, photo: Photo) {
-        val dbPhoto = PhotoMapper().modelToDb(photo)
+        val dbPhoto = PhotoModelMapper().mapModelToDb(photo)
                 .copy(id = photoId)
         repository.update(dbPhoto)
     }
@@ -48,10 +48,10 @@ class PhotoService(val storage: PhotoStorage, val repository: PhotoRepository) {
 
 }
 
-class PhotoMapper {
-    fun dbToModel(dbPhoto: PhotoRepository.Photo): Photo =
+class PhotoModelMapper {
+    fun mapDbToModel(dbPhoto: PhotoRepository.Photo): Photo =
             Photo(byteArrayOf(), dbPhoto.tags, dbPhoto.originalUrl, dbPhoto.storageUrl)
 
-    fun modelToDb(photo: Photo): PhotoRepository.Photo =
+    fun mapModelToDb(photo: Photo): PhotoRepository.Photo =
             PhotoRepository.Photo("", photo.tags, photo.originalUrl, photo.storageUrl)
 }
