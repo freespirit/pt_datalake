@@ -51,7 +51,7 @@ class RestTest {
         val photo = PhotoDTO(byteArrayOf(1, 2), listOf("tag1", "tag2"), "example.com")
         every { service.savePhoto(any()) } returns "1"
 
-        val (_, response, result) = Fuel.post(PATH_PHOTOS)
+        val (_, response, _) = Fuel.post(PATH_PHOTOS)
                 .body(PhotoSerializer().serialize(photo))
                 .response()
 
@@ -78,7 +78,7 @@ class RestTest {
 
         every { service.savePhoto(any()) } returns "1"
 
-        val (_, response, result) = Fuel.post(PATH_PHOTOS)
+        val (_, response, _) = Fuel.post(PATH_PHOTOS)
                 .body(PhotoSerializer().serialize(photo).toByteArray())
                 .response()
 
@@ -117,7 +117,7 @@ class RestTest {
 
         assertEquals(200, response.statusCode)
 
-        val (jsonArray, error) = result
+        val (jsonArray, _) = result
         val urls = jsonArray?.map { it.asString }
 
         assertArrayEquals(urls?.toTypedArray(), arrayOf(
@@ -154,7 +154,7 @@ class RestTest {
         println(response)
         println(result)
 
-        val (photoDto, error) = result
+        val (photoDto, _) = result
         println(photoDto)
 
         photoDto?.let {
