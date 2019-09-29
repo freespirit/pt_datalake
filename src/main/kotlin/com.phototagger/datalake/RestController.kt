@@ -22,6 +22,7 @@ class RestController constructor(
 
     companion object {
         //TODO extract configuration
+        @JvmStatic
         fun main(args: Array<String>) {
             val photoService = PhotoService(LocalPhotoStorage("data/files"), PhotoDB("data/db"))
             val port = 7000
