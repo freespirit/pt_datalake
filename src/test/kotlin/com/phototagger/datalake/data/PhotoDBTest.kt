@@ -9,7 +9,7 @@ import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Paths
 
-const val SQLITE_DIR = "./data"
+const val SQLITE_DIR = "./data_for_tests"
 const val SQLITE_FILE = "test_photos.db"
 
 internal class PhotoDBTest {
