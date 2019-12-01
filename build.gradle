@@ -21,7 +21,7 @@ dependencies {
     implementation "org.jetbrains.exposed:exposed:0.10.4"
     implementation "org.xerial:sqlite-jdbc:3.21.0.1"
 
-    implementation 'io.javalin:javalin:2.1.0'
+    implementation 'io.javalin:javalin:3.6.0'
 
     implementation 'com.google.code.gson:gson:2.8.5'
 
