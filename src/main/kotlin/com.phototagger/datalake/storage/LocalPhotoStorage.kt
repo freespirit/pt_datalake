@@ -23,7 +23,7 @@ class LocalPhotoStorage(path: String) : PhotoStorage {
     override fun load(location: String): ByteArray {
         val pathToFile = FileSystems.getDefault().getPath(location)
 
-        if(!pathToFile.startsWith(pathToStorage)) {
+        if(!pathToFile.startsWith(pathToStorage.toAbsolutePath())) {
             throw IllegalArgumentException("Illegal path to file received - $location. ${this::class} works in $pathToStorage only")
         }
 
