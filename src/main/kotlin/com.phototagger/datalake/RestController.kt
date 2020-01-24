@@ -34,7 +34,7 @@ class RestController constructor(
 
     fun createServer(): Javalin = Javalin.create()
             .defaultContentType(MIME_TYPE_JSON)
-            .get("/") { ctx -> ctx.result("Hello World") }
+            .get("/") { ctx -> ctx.result("Hello Photos!") }
             .routes {
                 crud("photos/:photo-id", this)
             }
