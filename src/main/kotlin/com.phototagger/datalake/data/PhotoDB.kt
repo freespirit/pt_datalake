@@ -22,7 +22,7 @@ object Tags : IntIdTable() {
 
 object PhotoTags : IntIdTable() {
     val photoId: Column<EntityID<Int>> = reference("photoId", Photos.id)
-    val tagId: Column<EntityID<Int>> = reference("tagId", Tags.id)
+    val tagId: Column<EntityID<Int>> = reference("tagId", Tags.id).index("tagIdIndex", isUnique = false)
 }
 
 class PhotoDB(pathToSQLite: String) : PhotoRepository {
@@ -104,7 +104,7 @@ class PhotoDB(pathToSQLite: String) : PhotoRepository {
         Photos.selectAll()
                 .map {
                     val id = it[Photos.id]
-                    val tags = photoTags(id)
+                    val tags = arrayListOf<String>()//photoTags(id)
                     val originalUrl = it[Photos.url]
                     val storageUrl = it[Photos.storageUrl] ?: ""
                     Photo(id.toString(), tags, originalUrl, storageUrl)
