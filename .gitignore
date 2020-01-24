@@ -1,3 +1,9 @@
+# Custom entries
+data/
+
+# IntelliJ idea
+.idea/
+
 ## JAVA
 # Compiled class file
 *.class
