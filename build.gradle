@@ -19,7 +19,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     implementation "org.jetbrains.exposed:exposed:0.10.4"
-    implementation "org.xerial:sqlite-jdbc:3.21.0.1"
+    implementation "org.xerial:sqlite-jdbc:3.28.0"
 
     implementation 'io.javalin:javalin:2.1.0'
 
